@@ -3,6 +3,8 @@
 // For use by Maniac applications
 
 #include "Maniac/Application.h"
+#include "Maniac/Log.h"
+
 
 
 // ---Entry Point ------------------------

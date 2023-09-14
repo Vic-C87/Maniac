@@ -1,3 +1,4 @@
+#include "mnpch.h"
 #include <Maniac.h>
 
 class Sandbox : public Maniac::Application
