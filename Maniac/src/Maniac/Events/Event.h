@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mnpch.h"
 #include "Maniac/Core.h"
 
 namespace Maniac

@@ -10,6 +10,11 @@ workspace "Maniac"
 
 outputdir ="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" 
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Maniac/vendor/GLFW/include"
+
+include "Maniac/vendor/GLFW"
+
 project "Maniac"
 	location "Maniac"
 	kind "SharedLib"
@@ -30,7 +35,14 @@ project "Maniac"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
