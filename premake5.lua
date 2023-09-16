@@ -12,8 +12,11 @@ outputdir ="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Maniac/vendor/GLFW/include"
+IncludeDir["Glad"] = "Maniac/vendor/Glad/include"
 
 include "Maniac/vendor/GLFW"
+include "Maniac/vendor/Glad"
+
 
 project "Maniac"
 	location "Maniac"
@@ -36,12 +39,14 @@ project "Maniac"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -53,7 +58,8 @@ project "Maniac"
 		defines
 		{
 			"MN_PLATFORM_WINDOWS",
-			"MN_BUILD_DLL"
+			"MN_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -64,14 +70,17 @@ project "Maniac"
 
 	filter "configurations:Debug"
 		defines "MN_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MN_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MN_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 
@@ -113,12 +122,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "MN_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MN_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MN_DIST"
+		buildoptions "/MD"
 		optimize "On"

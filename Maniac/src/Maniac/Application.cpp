@@ -1,9 +1,7 @@
 #include "mnpch.h"
 #include "Application.h"
 
-
-
-#include <GLFW/glfw3.h>
+#include "glad/glad.h"
 
 namespace Maniac
 {
@@ -19,20 +17,40 @@ namespace Maniac
 	{
 	}
 
+	void Application::PushLayer(Layer* aLayer)
+	{
+		myLayerStack.PushLayer(aLayer);
+	}
+
+	void Application::PushOverlay(Layer* aLayer)
+	{
+		myLayerStack.PushOverlay(aLayer);
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		MN_CORE_TRACE("{0}", e);
+		for (auto itterator = myLayerStack.end(); itterator != myLayerStack.begin();)
+		{
+			(*--itterator)->OnEvent(e);
+			if (e.Handled)
+			{
+				break;
+			}
+		}
 	}
+
 
 	void Application::Run()
 	{
 		while (myRunning)
 		{
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			for (Layer* layer : myLayerStack)
+			{
+				layer->OnUpdate();
+			}
 			myWindow->OnUpdate();
 		}
 	}

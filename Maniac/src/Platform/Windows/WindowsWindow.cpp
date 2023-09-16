@@ -5,6 +5,8 @@
 #include "Maniac/Events/MouseEvent.h"
 #include "Maniac/Events/KeyEvent.h"
 
+#include "glad/glad.h"
+
 namespace Maniac
 {
 	static bool sGLFWInitialized = false;
@@ -47,6 +49,8 @@ namespace Maniac
 
 		myWindow = glfwCreateWindow((int)someProperties.Width, (int)someProperties.Height, myData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(myWindow);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		MN_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(myWindow, &myData);
 		SetVSync(true);
 

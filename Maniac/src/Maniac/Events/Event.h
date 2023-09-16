@@ -35,6 +35,8 @@ namespace Maniac
 		friend class EventDispatcher;
 
 	public:
+		bool Handled = false;
+
 		virtual EEventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -44,8 +46,6 @@ namespace Maniac
 		{
 			return GetCategoryFlags() & aCategory;
 		}
-	protected:
-		bool myHandled = false;
 	};
 
 	class EventDispatcher
@@ -64,7 +64,7 @@ namespace Maniac
 		{
 			if (myEvent.GetEventType() == T::GetStaticType())
 			{
-				myEvent.myHandled = func(*(T*)&myEvent);
+				myEvent.Handled = func(*(T*)&myEvent);
 				return true;
 			}
 			return false;
