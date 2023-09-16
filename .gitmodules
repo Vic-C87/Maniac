@@ -4,3 +4,6 @@
 [submodule "Maniac/vendor/GLFW"]
 	path = Maniac/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Maniac/vendor/imgui"]
+	path = Maniac/vendor/imgui
+	url = https://github.com/ocornut/imgui
