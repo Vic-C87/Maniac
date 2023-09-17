@@ -7,8 +7,13 @@ namespace Maniac
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	Application* Application::sInstance = nullptr;
+
 	Application::Application()
 	{
+		MN_CORE_ASSERT(!sInstance, "Application already exists!");
+		sInstance = this;
+
 		myWindow = std::unique_ptr<Window>(Window::Create());
 		myWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -20,11 +25,14 @@ namespace Maniac
 	void Application::PushLayer(Layer* aLayer)
 	{
 		myLayerStack.PushLayer(aLayer);
+		aLayer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* aLayer)
 	{
 		myLayerStack.PushOverlay(aLayer);
+		aLayer->OnAttach();
+
 	}
 
 	void Application::OnEvent(Event& e)

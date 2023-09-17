@@ -22,12 +22,17 @@ namespace Maniac
 
 		void PushLayer(Layer* aLayer);
 		void PushOverlay(Layer* aLayer);
+
+		inline Window& GetWindow() { return *myWindow; }
+		inline static Application& Get() { return *sInstance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> myWindow;
 		bool myRunning = true;
 		LayerStack myLayerStack;
+	private:
+		static Application* sInstance;
 	};
 
 	// To be defined in CLIENT
