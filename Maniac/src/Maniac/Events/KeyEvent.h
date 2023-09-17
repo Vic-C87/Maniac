@@ -53,4 +53,20 @@ namespace Maniac {
 
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
+	class MANIAC_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int aKeyCode)
+			: KeyEvent(aKeyCode)	{}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << myKeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
 }

@@ -99,6 +99,14 @@ namespace Maniac
 				}
 			});
 
+		glfwSetCharCallback(myWindow, [](GLFWwindow* aWindow, unsigned int aKeyCode)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(aWindow);
+
+				KeyTypedEvent event(aKeyCode);
+				data.EventCallback(event);
+			});
+
 		glfwSetMouseButtonCallback(myWindow, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);

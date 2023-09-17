@@ -7,8 +7,7 @@
 		#define MANIAC_API __declspec(dllimport)
 	#endif // MN_BUILD_DLL
 #else
-#error Maniac only supports Windows
-
+	#error Maniac only supports Windows
 #endif // MN_PLATFORM_WINDOWS
 
 #ifdef MN_ENABLE_ASSERTS
@@ -19,5 +18,6 @@
 	#define MN_CORE_ASSERT(x, ...)
 #endif // MN_ENABLE_ASSERTS
 
-
 #define BIT(x) (1 << x)
+
+#define MN_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
