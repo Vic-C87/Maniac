@@ -10,12 +10,23 @@ public:
 
 	void OnUpdate() override
 	{
-		MN_INFO("ExampleLayer::Update");
+		if (Maniac::Input::IsKeyPressed(MN_KEY_TAB))
+		{
+			MN_TRACE("Tab key is pressed (poll)!");
+		}
 	}
 
 	void OnEvent(Maniac::Event& anEvent) override
 	{
-		MN_TRACE("{0}", anEvent);
+		if (anEvent.GetEventType() == Maniac::EEventType::KeyPressed)
+		{
+			Maniac::KeyPressedEvent& e = (Maniac::KeyPressedEvent&)anEvent;
+			if (e.GetKeyCode() == MN_KEY_TAB)
+			{
+				MN_TRACE("Tab key is pressed (event)!");
+			}
+			MN_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 

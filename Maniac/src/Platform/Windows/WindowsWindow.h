@@ -22,6 +22,7 @@ namespace Maniac
 		void SetVSync(bool anEnabled) override;
 		bool IsVSync() const override;
 
+		inline virtual void* GetNativeWindow() const { return myWindow; }
 	private:
 		virtual void Init(const WindowProps& someProperties);
 		virtual void Shutdown();

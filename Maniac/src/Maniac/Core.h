@@ -10,6 +10,10 @@
 	#error Maniac only supports Windows
 #endif // MN_PLATFORM_WINDOWS
 
+#ifdef MN_DEBUG
+	#define MN_ENABLE_ASSERTS
+#endif
+
 #ifdef MN_ENABLE_ASSERTS
 	#define MN_ASSERT(x, ...) { if(!(x)) {MN_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define MN_CORE_ASSERT(x, ...) { if(!(x)) { MN_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

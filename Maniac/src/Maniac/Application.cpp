@@ -1,7 +1,9 @@
 #include "mnpch.h"
 #include "Application.h"
 
-#include "glad/glad.h"
+#include <glad/glad.h>
+
+#include "Input.h"
 
 namespace Maniac
 {
@@ -55,6 +57,7 @@ namespace Maniac
 	{
 		while (myRunning)
 		{
+			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : myLayerStack)
 			{
 				layer->OnUpdate();
