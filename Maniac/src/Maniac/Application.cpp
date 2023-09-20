@@ -18,6 +18,9 @@ namespace Maniac
 
 		myWindow = std::unique_ptr<Window>(Window::Create());
 		myWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		myImGuiLayer = new ImGuiLayer();
+		PushOverlay(myImGuiLayer);
 	}
 
 	Application::~Application()
@@ -26,15 +29,12 @@ namespace Maniac
 
 	void Application::PushLayer(Layer* aLayer)
 	{
-		myLayerStack.PushLayer(aLayer);
-		aLayer->OnAttach();
+		myLayerStack.PushLayer(aLayer);		
 	}
 
 	void Application::PushOverlay(Layer* aLayer)
 	{
 		myLayerStack.PushOverlay(aLayer);
-		aLayer->OnAttach();
-
 	}
 
 	void Application::OnEvent(Event& e)
@@ -62,6 +62,14 @@ namespace Maniac
 			{
 				layer->OnUpdate();
 			}
+
+			myImGuiLayer->Begin();
+			for (Layer* layer : myLayerStack)
+			{
+				layer->OnImGuiRender();
+			}
+			myImGuiLayer->End();
+
 			myWindow->OnUpdate();
 		}
 	}

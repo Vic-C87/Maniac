@@ -1,5 +1,7 @@
 #include <Maniac.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Maniac::Layer
 {
 public:
@@ -15,6 +17,13 @@ public:
 		{
 			MN_TRACE("Tab key is pressed (poll)!");
 		}
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 	void OnEvent(Maniac::Event& anEvent) override
@@ -38,7 +47,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Maniac::ImGuiLayer());
 	}
 
 	~Sandbox()

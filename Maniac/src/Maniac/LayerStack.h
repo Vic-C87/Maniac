@@ -22,6 +22,6 @@ namespace Maniac
 		std::vector<Layer*>::iterator end() { return myLayers.end(); }
 	private:
 		std::vector<Layer*> myLayers;
-		std::vector<Layer*>::iterator myLayerInsert;
+		unsigned int myLayerInsertIndex = 0;
 	};
 }

@@ -5,7 +5,6 @@ namespace Maniac
 {
 	LayerStack::LayerStack()
 	{
-		myLayerInsert = myLayers.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -18,12 +17,15 @@ namespace Maniac
 
 	void LayerStack::PushLayer(Layer* aLayer)
 	{
-		myLayerInsert = myLayers.emplace(myLayerInsert, aLayer);
+		myLayers.emplace(myLayers.begin() + myLayerInsertIndex, aLayer);
+		myLayerInsertIndex++;
+		aLayer->OnAttach();
 	}
 
 	void LayerStack::PushOverlay(Layer* anOverlay)
 	{
 		myLayers.emplace_back(anOverlay);
+		anOverlay->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* aLayer)
@@ -32,7 +34,8 @@ namespace Maniac
 		if (itterator != myLayers.end())
 		{
 			myLayers.erase(itterator);
-			myLayerInsert--;
+			myLayerInsertIndex--;
+			aLayer->OnDetach();
 		}
 	}
 
@@ -42,6 +45,8 @@ namespace Maniac
 		if (itterator != myLayers.end())
 		{
 			myLayers.erase(itterator);
+			anOverlay->OnDetach();
+
 		}
 	}
 }

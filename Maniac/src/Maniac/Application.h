@@ -7,6 +7,8 @@
 #include "Maniac/Events/Event.h"
 #include "Maniac/Events/ApplicationEvent.h"
 
+#include "Maniac/ImGui/ImGuiLayer.h"
+
 
 namespace Maniac
 {
@@ -29,6 +31,7 @@ namespace Maniac
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> myWindow;
+		ImGuiLayer* myImGuiLayer;
 		bool myRunning = true;
 		LayerStack myLayerStack;
 	private:
