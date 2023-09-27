@@ -5,7 +5,7 @@
 #include "Maniac/Events/MouseEvent.h"
 #include "Maniac/Events/KeyEvent.h"
 
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Maniac
 {
@@ -48,9 +48,10 @@ namespace Maniac
 		}
 
 		myWindow = glfwCreateWindow((int)someProperties.Width, (int)someProperties.Height, myData.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(myWindow);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		MN_CORE_ASSERT(status, "Failed to initialize Glad!");
+		
+		myContext = new OpenGLContext(myWindow);
+		myContext->Init();
+
 		glfwSetWindowUserPointer(myWindow, &myData);
 		SetVSync(true);
 
@@ -153,7 +154,7 @@ namespace Maniac
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(myWindow);
+		myContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool anEnabled)

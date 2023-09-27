@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Maniac/Window.h"
+#include "Maniac/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"
 
@@ -31,6 +32,7 @@ namespace Maniac
 
 
 		GLFWwindow* myWindow;
+		GraphicsContext* myContext;
 
 		struct WindowData
 		{

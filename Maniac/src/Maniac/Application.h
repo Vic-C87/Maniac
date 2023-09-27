@@ -34,6 +34,10 @@ namespace Maniac
 		ImGuiLayer* myImGuiLayer;
 		bool myRunning = true;
 		LayerStack myLayerStack;
+
+		unsigned int myVertexArray;
+		unsigned int myVertexBuffer;
+		unsigned int myIndexBuffer;
 	private:
 		static Application* sInstance;
 	};
