@@ -9,6 +9,7 @@
 
 #include "Maniac/ImGui/ImGuiLayer.h"
 
+#include "Maniac/Renderer/Shader.h"
 
 namespace Maniac
 {
@@ -38,6 +39,8 @@ namespace Maniac
 		unsigned int myVertexArray;
 		unsigned int myVertexBuffer;
 		unsigned int myIndexBuffer;
+
+		std::unique_ptr<Shader> myShader;
 	private:
 		static Application* sInstance;
 	};
